@@ -1,6 +1,14 @@
 ;(function (propertyId) {
   if (firstPageView() && mobile() && (slow() || !modern())) {
-    return whenIdle(fetch)
+    ;(requestIdleCallback || function whenIdle (cb) {
+      var start = +new Date()
+      setTimeout(function () {
+        if ((+new Date() - start) > 200) {
+          return whenIdle(cb)
+        }
+        cb()
+      }, 100)
+    })(fetch)
   }
   return fetch()
 
@@ -21,19 +29,9 @@
     }
   }
 
-  function whenIdle (cb) {
-    var start = +new Date()
-    setTimeout(function () {
-      if ((+new Date() - start) > 200) {
-        return whenIdle(cb)
-      }
-      cb()
-    }, 100)
-  }
-
   function firstPageView () {
     var key = 'qubit-defer'
-    if (has(decodeURIComponent(document.cookie), key)) {
+    if (has(document.cookie, key)) {
       return false
     }
     document.cookie = key + '=1;'
@@ -52,16 +50,15 @@
     el.defer = true
     el.src = 'https://static.goqubit.com/smartserve-' + propertyId + '.js'
     el.onerror = el.onload = function (err) {
-      if (err && err.type === 'error') return finish(err)
+      if (err && err.type === 'error') return finish()
       if (loaded || (el.readyState && !/^(c|loade)/.test(el.readyState))) return
       return finish()
     }
     document.head.appendChild(el)
     return el
 
-    function finish (err) {
+    function finish () {
       loaded = true
-      if (el.parentElement) el.parentElement.removeChild(el)
     }
   }
 })(propertyId)
