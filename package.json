@@ -1,0 +1,25 @@
+{
+  "name": "smartserve-loader",
+  "version": "1.0.0",
+  "description": "Defers the loading of smartserve until an idle period for old devices and slow connections",
+  "main": "index.js",
+  "scripts": {
+    "build": "node bin/build",
+    "prepublish": "npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "minify": "^5.1.1",
+    "uglify-js": "^3.9.3"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qubitdigital/smartserve-loader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qubitdigital/smartserve-loader/issues"
+  },
+  "homepage": "https://github.com/qubitdigital/smartserve-loader#readme"
+}
