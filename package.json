@@ -4,7 +4,8 @@
   "description": "Defers the loading of smartserve until an idle period for old devices and slow connections",
   "main": "index.js",
   "scripts": {
-    "build": "uglifyjs --compress  --mangle --output index.min.js  -- index.js"
+    "build": "node bin/build",
+    "prepublish": "npm run build"
   },
   "author": "",
   "license": "ISC",
