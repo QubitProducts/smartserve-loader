@@ -1,0 +1,1 @@
+window.fetchTest = 123

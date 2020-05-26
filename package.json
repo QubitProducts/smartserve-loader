@@ -1,17 +1,31 @@
 {
   "name": "smartserve-loader",
   "version": "1.0.0",
-  "description": "Defers the loading of smartserve until an idle period for old devices and slow connections",
+  "description": "For slow connections and old browsers, defers loading of a script until an idle period",
   "main": "index.js",
   "scripts": {
+    "test": "karma start --single-run",
     "build": "node bin/build",
     "prepublish": "npm run build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.2.0",
+    "istanbul-instrumenter-loader": "^3.0.1",
+    "karma": "^5.0.9",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.2",
+    "karma-mocha": "^2.0.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^4.0.2",
     "minify": "^5.1.1",
-    "uglify-js": "^3.9.3"
+    "mocha": "^7.2.0",
+    "sinon": "^9.0.2",
+    "standard": "^14.3.4",
+    "tape": "^5.0.1",
+    "uglify-js": "^3.9.3",
+    "webpack": "^4.43.0"
   },
   "dependencies": {},
   "repository": {

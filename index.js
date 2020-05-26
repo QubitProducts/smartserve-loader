@@ -1,9 +1,9 @@
 module.exports = function (url) {
   var whenIdle = requestIdleCallback || whenIdle
-  if (firstPageView() && mobile() && (slow() || !modern())) {
+  if (firstPageView('qubit-defer') && mobile() && (slow() || !modern())) {
     return whenIdle(function () {
       fetch(url)
-    })
+    }, 50, 100)
   }
   return fetch(url)
 
@@ -15,10 +15,10 @@ module.exports = function (url) {
     el.defer = true
     el.src = url
     document.head.appendChild(el)
+    return el
   }
 
-  function firstPageView () {
-    var key = 'qubit-defer'
+  function firstPageView (key) {
     if (has(document.cookie, key)) {
       return false
     }
@@ -47,13 +47,13 @@ module.exports = function (url) {
     if (connection) return has(['slow-2g', '2g', '3g'], connection.effectiveType)
   }
 
-  function whenIdle (cb) {
+  function whenIdle (cb, delay, timeout) {
     var start = +new Date()
     setTimeout(function () {
-      if ((+new Date() - start) > 200) {
-        return whenIdle(cb)
+      if ((+new Date() - start) > (delay + timeout)) {
+        return whenIdle(cb, delay, timeout)
       }
       cb()
-    }, 100)
+    }, delay)
   }
 }
