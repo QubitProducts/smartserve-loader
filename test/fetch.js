@@ -9,7 +9,7 @@ describe('fetch', function () {
   it('fetches and executes a script', function (done) {
     then(fetch('/base/test/fixtures/fetch.js?_=' + Math.random()), function () {
       try {
-        eql(fetchTest, 123)
+        eql(window.fetchTest, 123)
         done()
       } catch (err) {
         done(err)
@@ -18,17 +18,10 @@ describe('fetch', function () {
   })
 })
 
-
 function then (el, cb) {
-  var loaded
   el.onerror = el.onload = function (err) {
-    if (err && err.type === 'error') return finish()
+    if (err && err.type === 'error') return cb()
     if (el.readyState && !/^(c|loade)/.test(el.readyState)) return
-    return finish()
-  }
-
-  function finish () {
-    loaded = true
     return cb()
   }
 }

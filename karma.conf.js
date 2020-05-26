@@ -25,14 +25,14 @@ module.exports = function (config) {
       }
     },
     webpackMiddleware: {
-      stats: 'errors-only',
+      stats: 'errors-only'
     },
     browsers: ['Chrome'],
     reporters: ['progress', 'coverage'],
     coverageReporter: {
       reporters: [
         { type: 'lcov', subdir: 'report-lcov' },
-        { type: 'text-summary' },
+        { type: 'text-summary' }
       ],
       check: {
         global: {

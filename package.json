@@ -4,7 +4,7 @@
   "description": "For slow connections and old browsers, defers loading of a script until an idle period",
   "main": "index.js",
   "scripts": {
-    "test": "karma start --single-run",
+    "test": "standard && karma start --single-run",
     "build": "node bin/build",
     "prepublish": "npm run build"
   },
@@ -26,6 +26,12 @@
     "tape": "^5.0.1",
     "uglify-js": "^3.9.3",
     "webpack": "^4.43.0"
+  },
+  "standard": {
+    "ignore": [
+      "snippet.js"
+    ],
+    "globals": [ "describe", "it", "beforeEach", "afterEach", "before", "after" ]
   },
   "dependencies": {},
   "repository": {

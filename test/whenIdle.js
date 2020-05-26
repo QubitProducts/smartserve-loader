@@ -3,7 +3,7 @@ var whenIdle = require('../lib/whenIdle')
 var sinon = require('sinon')
 
 describe('whenIdle', function () {
-  var clock, stub, delay, timeout
+  var stub, delay, timeout
   beforeEach(function () {
     delay = 50
     timeout = 100

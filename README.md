@@ -30,7 +30,7 @@ after:
 
 ## Usage
 
-Paste `snippet.js` into your tag manager or a script tag replacing the url in the final parenthesis the url for the script you wish to load:
+Paste `snippet.js` into your tag manager or a script tag replacing the url in the final parenthesis with the url for the script you wish to load:
 
 For example:
 ```js
