@@ -13,7 +13,8 @@ module.exports = function (url) {
     defer(function () {
       fetch(el, url)
     })
-    return el
+  } else {
+    fetch(el, url)
   }
-  return fetch(el, url)
+  return el
 }
