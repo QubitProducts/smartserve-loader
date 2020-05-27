@@ -4,7 +4,7 @@
   "description": "For slow connections and old browsers, defers loading of a script until an idle period",
   "main": "index.js",
   "scripts": {
-    "lint": "standard",
+    "lint": "standard && standard5",
     "test": "karma start --single-run",
     "build": "node bin/build",
     "prepublish": "npm run build"

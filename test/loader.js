@@ -47,7 +47,6 @@ describe('loader', function () {
 
   describe('connection', function () {
     it('should pass navigator.connection to slow', function (done) {
-      debugger
       var slow = sandbox.stub().returns(true)
       var connection = { effectiveType: '2g' }
       stub(window.navigator, 'connection', connection)
