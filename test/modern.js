@@ -8,16 +8,16 @@ describe('modern', function () {
   })
 
   afterEach(function () {
-    window.eval.restore()
+    window.eval.restore() // eslint-disable-line no-eval
   })
 
   it('returns true if arrow functions supported', function () {
-    window.eval.throws('eek')
+    window.eval.throws('eek') // eslint-disable-line no-eval
     eql(modern(), false)
   })
 
   it('returns false if arrow functions not supported', function () {
-    window.eval.throws('eek')
+    window.eval.throws('eek') // eslint-disable-line no-eval
     eql(modern(), false)
   })
 })
