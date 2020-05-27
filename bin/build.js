@@ -5,7 +5,7 @@ const uglify = require('uglify-js')
 
 fs.readdir('lib', (err, files) => {
   if (err) throw err
-  var lib = files
+  const lib = files
     .map(file =>
       String(fs.readFileSync('lib/' + file))
         .replace('module.exports = ', '')
@@ -15,14 +15,14 @@ fs.readdir('lib', (err, files) => {
     )
     .join('\n\n')
 
-  var src = String(fs.readFileSync('./src.js'))
+  const main = String(fs.readFileSync('./main.js'))
     .replace(/.*require.*/mg, '')
     .trim()
-    .replace(/.*{{ insert-lib }}.*/, lib)
+    .replace(/.*\}\s*$/i, '\n' + lib + '\n}')
 
-  fs.writeFileSync('./index.js', src + '\n')
+  fs.writeFileSync('./index.js', main + '\n')
 
-  var wrapped = ';(' + src.replace('module.exports = ', '') + ')(url);'
+  const wrapped = ';(' + main.replace('module.exports = ', '') + ')(url);'
 
   fs.writeFileSync('./snippet.js', uglify.minify(wrapped, {
     mangle: true,

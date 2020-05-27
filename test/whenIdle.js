@@ -11,12 +11,12 @@ describe('whenIdle', function () {
   })
 
   it('calls the callback if CPU is not idle', function (done) {
-    whenIdle(done, delay, timeout)
+    whenIdle(delay, timeout)(done, delay, timeout)
   })
 
   it('delays the callback until cpu is not idle', function (done) {
     this.timeout(10000)
-    whenIdle(done, delay, timeout)
+    whenIdle(delay, timeout)(done, delay, timeout)
     var start = +new Date()
     while ((+new Date() - start) <= (timeout + 50)) {
       eql(stub.called, false)
