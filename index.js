@@ -20,15 +20,11 @@ module.exports = function (url) {
   }
 
   function firstView (key) {
-    if (has(document.cookie, key)) {
+    if (document.cookie.indexOf(key) > -1) {
       return false
     }
     document.cookie = key + '=1;'
     return true
-  }
-
-  function has (arr, thing) {
-    return arr.indexOf(thing) > -1
   }
 
   function mobile (userAgent) {
@@ -45,7 +41,7 @@ module.exports = function (url) {
 
   function slow (connection) {
     return connection
-      ? has(['slow-2g', '2g', '3g'], connection.effectiveType)
+      ? ['slow-2g', '2g', '3g'].indexOf(connection.effectiveType) > -1
       : false
   }
 
