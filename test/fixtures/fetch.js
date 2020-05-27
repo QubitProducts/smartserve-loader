@@ -1,1 +1,1 @@
-window.fetchTest = 123
+window.fetched = true

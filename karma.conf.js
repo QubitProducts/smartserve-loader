@@ -1,12 +1,14 @@
+const RewireWebpackPlugin = require('rewire-webpack-plugin')
+
 module.exports = function (config) {
   config.set({
     frameworks: ['mocha'],
     files: [
-      'test/**/*.js',
-      { pattern: 'test/fixtures/**', included: false }
+      'test/**/*.js'
     ],
     preprocessors: {
       'lib/**/*.js': ['webpack', 'sourcemap'],
+      'main.js': ['webpack', 'sourcemap'],
       'test/*.js': ['webpack', 'sourcemap'],
       'test/helpers/*.js': ['webpack', 'sourcemap']
     },
@@ -16,16 +18,20 @@ module.exports = function (config) {
       devtool: 'inline-source-map',
       module: {
         rules: [{
-          test: /lib\/.*\.js$/,
+          include: [/(main|lib\/.*)\.js$/],
           use: {
             loader: 'istanbul-instrumenter-loader'
           },
-          exclude: /(test|node_modules|bower_components)\//
+          exclude: [/(test|node_modules|bower_components)\//, /lib\/modern\.js$/]
         }]
-      }
+      },
+      plugins: [
+        new RewireWebpackPlugin()
+      ]
     },
     webpackMiddleware: {
-      stats: 'errors-only'
+      stats: 'errors-only',
+      logLevel: 'silent'
     },
     browsers: ['Chrome'],
     reporters: ['progress', 'coverage'],

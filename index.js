@@ -1,14 +1,16 @@
 module.exports = function (url) {
-  var defer = window.requestIdleCallback || whenIdle
-  if (firstPageView('qubit-defer') && mobile() && (slow() || !modern())) {
-    return defer(function () {
-      fetch(url)
-    }, 50, 100)
+  var el = document.createElement('script')
+  var defer = window.requestIdleCallback || whenIdle(50, 100)
+  var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
+  if (firstView('qubit-defer') && mobile(navigator.userAgent) && (slow(connection) || !modern())) {
+    defer(function () {
+      fetch(el, url)
+    })
+    return el
   }
-  return fetch(url)
+  return fetch(el, url)
 
-  function fetch (url) {
-    var el = document.createElement('script')
+  function fetch (el, url) {
     el.type = 'text/javascript'
     el.async = true
     el.defer = true
@@ -17,10 +19,11 @@ module.exports = function (url) {
     return el
   }
 
-  function firstPageView (key) {
+  function firstView (key) {
     if (has(document.cookie, key)) {
       return false
     }
+    debugger
     document.cookie = key + '=1;'
     return true
   }
@@ -29,30 +32,33 @@ module.exports = function (url) {
     return arr.indexOf(thing) > -1
   }
 
-  function mobile () {
-    return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1)
+  function mobile (userAgent) {
+    return (typeof window.orientation !== 'undefined') || (userAgent.indexOf('IEMobile') !== -1)
   }
 
   function modern () {
     try {
-      return Boolean(eval('(async () => await true)()').then) // eslint-disable-line no-eval
+      return Boolean(eval('()=>{}')) // eslint-disable-line no-eval
     } catch (err) {
       return false
     }
   }
 
-  function slow () {
-    var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
-    if (connection) return has(['slow-2g', '2g', '3g'], connection.effectiveType)
+  function slow (connection) {
+    return connection
+      ? has(['slow-2g', '2g', '3g'], connection.effectiveType)
+      : false
   }
 
-  function whenIdle (cb, delay, timeout) {
-    var start = +new Date()
-    setTimeout(function () {
-      if ((+new Date() - start) > (delay + timeout)) {
-        return whenIdle(cb, delay, timeout)
-      }
-      cb()
-    }, delay)
+  function whenIdle (delay, timeout) {
+    return function whenIdle (cb) {
+      var start = +new Date()
+      setTimeout(function () {
+        if ((+new Date() - start) > (delay + timeout)) {
+          return whenIdle(cb, delay, timeout)
+        }
+        cb()
+      }, delay)
+    }
   }
 }
