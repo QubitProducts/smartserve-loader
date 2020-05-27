@@ -9,7 +9,8 @@ describe('fetch', function () {
 
   it('fetches and executes a script', function (done) {
     var el = document.createElement('script')
-    fetched(fetch(el, '/base/test/fixtures/fetch.js?_=' + Math.random()), function () {
+    fetch(el, '/base/test/fixtures/fetch.js?_=' + Math.random())
+    fetched(el, function () {
       try {
         eql(window.fetched, true)
         done()

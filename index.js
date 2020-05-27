@@ -6,9 +6,10 @@ module.exports = function (url) {
     defer(function () {
       fetch(el, url)
     })
-    return el
+  } else {
+    fetch(el, url)
   }
-  return fetch(el, url)
+  return el
 
   function fetch (el, url) {
     el.type = 'text/javascript'
@@ -16,7 +17,6 @@ module.exports = function (url) {
     el.defer = true
     el.src = url
     document.head.appendChild(el)
-    return el
   }
 
   function firstView (key) {
