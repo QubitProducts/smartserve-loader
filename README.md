@@ -34,5 +34,5 @@ Paste `snippet.js` into your tag manager or a script tag replacing the url in th
 
 For example:
 ```js
-!function(url){var whenIdle...whenIdle(e,n,t):void e()},n)}}("*** REPLACE WITH SCRIPT URL ***");
+!function(url){var whenIdle...whenIdle(e,n,t):void e()},n)}}("YOUR URL GOES HERE");
 ```
